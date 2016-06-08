@@ -1,5 +1,5 @@
 defmodule GithubService.Github.GetUserRepositoriesTest do
-  use ExUnit.Case
+  use GithubService.ModelCase
   alias GithubService.Github.GetUserRepositories
   alias GithubService.Github.Storage
   alias GithubService.Github.Repository
@@ -20,5 +20,14 @@ defmodule GithubService.Github.GetUserRepositoriesTest do
     assert found_repo.name == repository.name
     assert found_repo.languages_url == repository.languages_url
     assert found_repo.owner == repository.owner.login
+  end
+
+  @tag :integration
+  test "stores repository after it has been retrieved from external api" do
+    repositories = GetUserRepositories.execute("hackeryou")
+
+    stored_repos = Storage.find_all_for_user("HackerYou")
+
+    assert length(stored_repos) == 30
   end
 end

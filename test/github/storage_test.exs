@@ -1,5 +1,5 @@
 defmodule GithubService.Github.StorageTest do
-  use ExUnit.Case
+  use GithubService.ModelCase
   alias GithubService.Github.Repository
   alias GithubService.Github.Owner
   alias GithubService.Github.Storage

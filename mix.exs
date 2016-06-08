@@ -19,7 +19,7 @@ defmodule GithubService.Mixfile do
   def application do
     [mod: {GithubService, []},
      applications: [:phoenix, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :httpotion]]
   end
 
   # Specifies which paths to compile per environment.
@@ -34,7 +34,9 @@ defmodule GithubService.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_ecto, "~> 2.0"},
      {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:httpotion, "~> 2.2.0"}
+   ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

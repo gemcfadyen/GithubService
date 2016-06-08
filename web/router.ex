@@ -5,7 +5,9 @@ defmodule GithubService.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", GithubService do
+  scope "/", GithubService do
     pipe_through :api
+
+    get "/users/:username/repos", GithubController, :user_repos
   end
 end

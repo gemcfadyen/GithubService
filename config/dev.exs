@@ -16,6 +16,8 @@ config :github_service, GithubService.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
+config :github_service, :client, GithubService.Github.HTTPClient
+
 # Set a higher stacktrace during development.
 # Do not configure such in production as keeping
 # and calculating stacktraces is usually expensive.

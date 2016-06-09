@@ -3,14 +3,12 @@ defmodule GithubService.Github.FetchLanguagesTest do
   alias GithubService.Github.FetchLanguages
   alias GithubService.Github.Storage
 
-  @tag :integration
   test "gets languages for a given repository from external api" do
     languages = FetchLanguages.for_repository("hackeryou", "amazon")
 
     assert %{"Ruby" => _byte_count} = languages
   end
 
-  @tag :integration
   test "languages retrieved through external api are persisted" do
     languages = FetchLanguages.for_repository("hackeryou", "amazon")
 

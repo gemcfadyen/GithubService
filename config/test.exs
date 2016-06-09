@@ -9,6 +9,8 @@ config :github_service, GithubService.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :github_service, :client, FakeClient
+
 # Configure your database
 config :github_service, GithubService.Repo,
   adapter: Ecto.Adapters.Postgres,

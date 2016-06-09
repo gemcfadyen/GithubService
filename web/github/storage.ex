@@ -5,13 +5,7 @@ defmodule GithubService.Github.Storage do
   alias GithubService.Github.Language
 
   def write_repository(repository) do
-    repo = %Repository{
-      name: repository.name,
-      languages_url: repository.languages_url,
-      owner: String.downcase(repository.owner.login)
-    }
-
-    Repo.insert(repo)
+    Repo.insert(repository)
   end
 
   def find_all_for_user(name) do

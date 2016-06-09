@@ -8,25 +8,25 @@ defmodule GithubService.Github.TransformReposResponseTest do
 
   test "transforms client response" do
     repositories = read_sample_data
-                   |> TransformReposResponse.convert
+                    |> TransformReposResponse.convert
 
     assert length(repositories) == 30
   end
 
+  test "downcases the repository owner name" do
+    repository = read_sample_data
+    |> TransformReposResponse.convert
+    |> List.first
+
+    assert repository.owner == "hackeryou"
+  end
+
   test "repository has the correct fields" do
     repo = read_sample_data
-                   |> TransformReposResponse.convert
-                   |> List.first
+            |> TransformReposResponse.convert
+            |> List.first
 
     assert repo.name == "amazon"
     assert repo.languages_url == "https://api.github.com/repos/HackerYou/amazon/languages"
-  end
-
-  test "repository contains owner information" do
-    repo = read_sample_data
-                   |> TransformReposResponse.convert
-                   |> List.first
-
-    assert repo.owner.login == "HackerYou"
   end
 end

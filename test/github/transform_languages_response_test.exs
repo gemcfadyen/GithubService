@@ -7,5 +7,4 @@ defmodule GithubService.Github.TransformLanguagesResponseTest do
 
     assert %{"Ruby" => _byte_count} = TransformLanguagesResponse.convert(content)
   end
-
 end

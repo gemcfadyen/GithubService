@@ -12,7 +12,8 @@ defmodule GithubService.Github.GetUserRepositories do
     all_repos = Client.get_repositories_for(username)
     |> TransformReposResponse.convert
 
-    Enum.each(all_repos, fn(r) -> Storage.write(r) end)
+    Enum.each(all_repos, fn(r) -> Storage.write_repository(r) end)
+
     all_repos
   end
   defp retrieve_repositories(repos, _username), do: repos

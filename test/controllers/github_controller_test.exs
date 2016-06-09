@@ -27,6 +27,19 @@ defmodule GithubService.GithubControllerTest do
     assert response.resp_body == repos_in_json
   end
 
+  test "endpoint uneffected by the case of the username" do
+    repo = %Repository{languages_url: "url", owner: %Owner{login: "hackeryou"}, name: "project-name"}
+    Storage.write_repository(repo)
+    stored_repos = Storage.find_all_for_user("hackeryou")
+    conn = conn(:get, "/users/HackerYou/repos")
+
+    response = GithubService.Router.call(conn, [])
+
+    {:ok, repos_in_json} = Poison.encode(stored_repos)
+
+    assert response.resp_body == repos_in_json
+  end
+
   @tag :integration
   test "language endpoint responds successfully" do
     conn = conn(:get, "/repos/hackeryou/amazon/languages")

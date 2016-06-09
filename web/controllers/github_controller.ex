@@ -4,7 +4,9 @@ defmodule GithubService.GithubController do
   alias GithubService.Github.FetchLanguages
 
   def user_repos(conn, %{"username" => username}) do
-    repos = GetUserRepositories.execute(username)
+    repos = username
+            |> String.downcase
+            |> GetUserRepositories.execute
 
     json conn, repos
   end

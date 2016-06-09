@@ -7,4 +7,9 @@ defmodule GithubService.GithubController do
 
     json conn, repos
   end
+
+  def repo_languages(conn, %{"username" => username, "repo_name" => repo_name}) do
+
+    send_resp(conn, 200, "")
+  end
 end

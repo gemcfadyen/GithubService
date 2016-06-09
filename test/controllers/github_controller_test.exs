@@ -1,5 +1,5 @@
 defmodule GithubService.GithubControllerTest do
-  use ExUnit.Case
+  use GithubService.ModelCase
   use GithubService.ConnCase
   alias GithubService.Github.Repository
   alias GithubService.Github.Owner
@@ -25,5 +25,13 @@ defmodule GithubService.GithubControllerTest do
     {:ok, repos_in_json} = Poison.encode(stored_repos)
 
     assert response.resp_body == repos_in_json
+  end
+
+  test "language endpoint responds successfully" do
+    conn = conn(:get, "/repos/hackeryou/amazon/languages")
+
+    response = GithubService.Router.call(conn, [])
+
+    assert response.status == 200
   end
 end

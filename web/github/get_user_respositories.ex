@@ -9,17 +9,12 @@ defmodule GithubService.Github.GetUserRepositories do
   end
 
   defp retrieve_repositories([], username) do
-    IO.write("Retrieving record from github client")
-
     all_repos = Client.get_repositories_for(username)
     |> TransformReposResponse.convert
 
     Enum.each(all_repos, fn(r) -> Storage.write(r) end)
     all_repos
   end
-  defp retrieve_repositories(repos, _username) do
-    IO.write("Retrieving record locally")
-    repos
-  end
+  defp retrieve_repositories(repos, _username), do: repos
 end
 

@@ -16,7 +16,7 @@ defmodule GithubService.GithubControllerTest do
 
   test "repositories endpoint responds with found repositories in json" do
     repo = %Repository{languages_url: "url", owner: %Owner{login: "hackeryou"}, name: "project-name"}
-    Storage.write(repo)
+    Storage.write_repository(repo)
     stored_repos = Storage.find_all_for_user("hackeryou")
     conn = conn(:get, "/users/hackeryou/repos")
 
@@ -33,5 +33,18 @@ defmodule GithubService.GithubControllerTest do
     response = GithubService.Router.call(conn, [])
 
     assert response.status == 200
+  end
+
+  @tag :pending
+  test "languages endpoint returns with repo languages in json" do
+    languages = %{"CSS" => 0, "Ruby" => 0}
+    Storage.write_languages("hackeryou", "amazon", languages)
+    stored_languages = Storage.find_languages_for_repo("hackeryou", "amazon")
+    conn = conn(:get, "/repos/hackeryou/amazon/languages")
+
+    response = GithubService.Router.call(conn, [])
+
+    {:ok, json_response} = Poison.encode(stored_languages)
+    assert response.resp_body == json_response
   end
 end

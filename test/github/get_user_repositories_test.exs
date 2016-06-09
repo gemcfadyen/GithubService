@@ -13,7 +13,7 @@ defmodule GithubService.Github.GetUserRepositoriesTest do
 
   test "retrieves repositories from db if one exists" do
     repository = %Repository{languages_url: "url", owner: %Owner{login: "hackeryou"}, name: "project-name"}
-    Storage.write(repository)
+    Storage.write_repository(repository)
 
     found_repo = GetUserRepositories.execute("hackeryou") |> List.first
 
@@ -24,10 +24,9 @@ defmodule GithubService.Github.GetUserRepositoriesTest do
 
   @tag :integration
   test "stores repository after it has been retrieved from external api" do
-    repositories = GetUserRepositories.execute("hackeryou")
+    GetUserRepositories.execute("hackeryou")
 
     stored_repos = Storage.find_all_for_user("HackerYou")
-
     assert length(stored_repos) == 30
   end
 end

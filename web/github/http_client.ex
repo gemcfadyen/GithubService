@@ -1,4 +1,5 @@
 defmodule GithubService.Github.HTTPClient do
+  @behaviour Client
   @root_url "https://api.github.com/"
 
   def get_repositories_for(user) do

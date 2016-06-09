@@ -3,7 +3,7 @@ defmodule GithubService.Github.TransformLanguagesResponseTest do
   alias GithubService.Github.TransformLanguagesResponse
 
   test "transforms languages response" do
-    {:ok, content} = File.read("test/github/languages_response.json")
+    {:ok, content} = File.read("test/sample_data/languages_response.json")
 
     assert %{"Ruby" => _byte_count} = TransformLanguagesResponse.convert(content)
   end

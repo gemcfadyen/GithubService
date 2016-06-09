@@ -5,14 +5,18 @@ defmodule GithubService.GithubController do
 
   def user_repos(conn, %{"username" => username}) do
     repos = username
-            |> String.downcase
+            |> downcase
             |> GetUserRepositories.execute
 
     json conn, repos
   end
 
   def repo_languages(conn, %{"username" => username, "repo_name" => repo_name}) do
-    languages = FetchLanguages.for_repository(username, repo_name)
+    languages = username
+                |> downcase
+                |> FetchLanguages.for_repository(repo_name)
     json conn, languages
   end
+
+  defp downcase(name), do: String.downcase(name)
 end

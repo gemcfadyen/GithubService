@@ -27,7 +27,7 @@ defmodule GithubService.GithubControllerTest do
     assert response.resp_body == repos_in_json
   end
 
-  test "endpoint uneffected by the case of the username" do
+  test "repository endpoint uneffected by the case of the username" do
     repo = %Repository{languages_url: "url", owner: %Owner{login: "hackeryou"}, name: "project-name"}
     Storage.write_repository(repo)
     stored_repos = Storage.find_all_for_user("hackeryou")
@@ -41,13 +41,25 @@ defmodule GithubService.GithubControllerTest do
   end
 
   @tag :integration
-  test "language endpoint responds successfully" do
+  test "languages endpoint responds successfully" do
     conn = conn(:get, "/repos/hackeryou/amazon/languages")
 
     response = GithubService.Router.call(conn, [])
 
     assert response.status == 200
   end
+
+ test "languages endpoint uneffected by the case of the username" do
+    languages = %{"CSS" => 0, "Ruby" => 0}
+    Storage.write_languages("hackeryou", "amazon", languages)
+    conn = conn(:get, "/repos/HackerYou/amazon/languages")
+
+    response = GithubService.Router.call(conn, [])
+    stored_languages = Storage.find_all_languages("hackeryou", "amazon")
+    {:ok, json_response} = Poison.encode(stored_languages)
+
+    assert response.resp_body == json_response
+ end
 
   test "languages endpoint returns with repo languages in json" do
     languages = %{"CSS" => 0, "Ruby" => 0}

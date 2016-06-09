@@ -27,6 +27,7 @@ defmodule GithubService.GithubControllerTest do
     assert response.resp_body == repos_in_json
   end
 
+  @tag :integration
   test "language endpoint responds successfully" do
     conn = conn(:get, "/repos/hackeryou/amazon/languages")
 
@@ -35,16 +36,15 @@ defmodule GithubService.GithubControllerTest do
     assert response.status == 200
   end
 
-  @tag :pending
   test "languages endpoint returns with repo languages in json" do
     languages = %{"CSS" => 0, "Ruby" => 0}
     Storage.write_languages("hackeryou", "amazon", languages)
-    stored_languages = Storage.find_languages_for_repo("hackeryou", "amazon")
     conn = conn(:get, "/repos/hackeryou/amazon/languages")
 
     response = GithubService.Router.call(conn, [])
-
+    stored_languages = Storage.find_all_languages("hackeryou", "amazon")
     {:ok, json_response} = Poison.encode(stored_languages)
+
     assert response.resp_body == json_response
   end
 end

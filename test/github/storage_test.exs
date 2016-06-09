@@ -27,11 +27,8 @@ defmodule GithubService.Github.StorageTest do
 
     Storage.write_languages(user, repo_name, languages)
 
-    language = Storage.find_all_languages(user, repo_name) |> List.first
+    found_languages = Storage.find_all_languages(user, repo_name)
 
-    assert language.language
-    assert language.byte_count == byte_count
-    assert language.user == user
-    assert language.repository == repo_name
+    assert found_languages == languages
   end
 end

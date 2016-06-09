@@ -1,6 +1,7 @@
 defmodule GithubService.GithubController do
   use GithubService.Web, :controller
   alias GithubService.Github.GetUserRepositories
+  alias GithubService.Github.FetchLanguages
 
   def user_repos(conn, %{"username" => username}) do
     repos = GetUserRepositories.execute(username)
@@ -9,7 +10,7 @@ defmodule GithubService.GithubController do
   end
 
   def repo_languages(conn, %{"username" => username, "repo_name" => repo_name}) do
-
-    send_resp(conn, 200, "")
+    languages = FetchLanguages.for_repository(username, repo_name)
+    json conn, languages
   end
 end

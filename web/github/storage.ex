@@ -25,6 +25,8 @@ defmodule GithubService.Github.Storage do
 
   def find_all_languages(user, repository) do
    query = from l in Language, where: l.user == ^user and l.repository == ^repository, select: l
-   Repo.all(query)
+   found_languages = Repo.all(query)
+
+   Enum.reduce(found_languages, %{}, fn(l, acc) -> Map.put(acc, l.language, l.byte_count) end)
   end
 end

@@ -1,5 +1,6 @@
 defmodule GithubService.Github.Language do
   use GithubService.Web, :model
+  @derive {Poison.Encoder, only: [:user, :repository, :language, :byte_count]}
 
   schema "languages" do
     field :user, :string

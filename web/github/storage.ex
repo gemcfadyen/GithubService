@@ -8,7 +8,7 @@ defmodule GithubService.Github.Storage do
     repo = %Repository{
       name: repository.name,
       languages_url: repository.languages_url,
-      owner: repository.owner.login
+      owner: String.downcase(repository.owner.login)
     }
 
     Repo.insert(repo)

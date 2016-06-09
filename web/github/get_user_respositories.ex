@@ -9,7 +9,8 @@ defmodule GithubService.Github.GetUserRepositories do
   end
 
   defp retrieve_repositories([], username) do
-    IO.write("GO TO CLIENT")
+    IO.write("Retrieving record from github client")
+
     all_repos = Client.get_repositories_for(username)
     |> TransformReposResponse.convert
 
@@ -17,7 +18,7 @@ defmodule GithubService.Github.GetUserRepositories do
     all_repos
   end
   defp retrieve_repositories(repos, _username) do
-    IO.write("LOOK UP LOCAL DB")
+    IO.write("Retrieving record locally")
     repos
   end
 end

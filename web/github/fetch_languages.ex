@@ -1,5 +1,5 @@
 defmodule GithubService.Github.FetchLanguages do
-  alias GithubService.Github.Client
+  alias GithubService.Github.HTTPClient
   alias GithubService.Github.TransformLanguagesResponse
   alias GithubService.Github.Storage
 
@@ -8,7 +8,7 @@ defmodule GithubService.Github.FetchLanguages do
   end
 
   defp retrieve_languages(languages, name, repo) when languages == %{} do
-    languages = Client.get_languages_for(name, repo)
+    languages = HTTPClient.get_languages_for(name, repo)
                 |> TransformLanguagesResponse.convert
 
     Storage.write_languages(name, repo, languages)

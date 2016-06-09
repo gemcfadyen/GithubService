@@ -1,4 +1,4 @@
-defmodule GithubService.Github.Client do
+defmodule GithubService.Github.HTTPClient do
   @root_url "https://api.github.com/"
 
   def get_repositories_for(user) do

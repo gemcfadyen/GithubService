@@ -13,12 +13,12 @@ defmodule GithubService.Github.Storage do
     Repo.all(query)
   end
 
-  def write_languages(user, repository, languages) do
-     Enum.each(languages, fn({language, byte_count}) -> Repo.insert(%Language{user: user, repository: repository, language: language, byte_count: byte_count}) end)
+  def write_languages(owner, repository, languages) do
+     Enum.each(languages, fn({language, byte_count}) -> Repo.insert(%Language{owner: owner, repository: repository, language: language, byte_count: byte_count}) end)
   end
 
-  def find_all_languages(user, repository) do
-   query = from l in Language, where: l.user == ^user and l.repository == ^repository, select: l
+  def find_all_languages(owner, repository) do
+   query = from l in Language, where: l.owner == ^owner and l.repository == ^repository, select: l
    found_languages = Repo.all(query)
 
    Enum.reduce(found_languages, %{}, fn(l, acc) -> Map.put(acc, l.language, l.byte_count) end)

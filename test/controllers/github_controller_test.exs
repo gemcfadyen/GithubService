@@ -11,6 +11,16 @@ defmodule GithubService.GithubControllerTest do
     assert response.status == 200
   end
 
+  test "user endpoint responds with user data in json" do
+    conn = conn(:get, "/users/hackeryou")
+
+    response = GithubService.Router.call(conn, [])
+
+    stored_repos = Storage.find_user("hackeryou")
+    {:ok, repos_in_json} = Poison.encode(stored_repos)
+    assert response.resp_body == repos_in_json
+  end
+
   test "repositories endpoint responds successfully" do
     conn = conn(:get, "/users/hackeryou/repos")
 

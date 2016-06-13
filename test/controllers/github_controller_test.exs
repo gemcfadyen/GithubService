@@ -1,10 +1,17 @@
 defmodule GithubService.GithubControllerTest do
   use GithubService.ModelCase
   use GithubService.ConnCase
-  alias GithubService.Github.Repository
   alias GithubService.Github.Storage
 
-  test "repositories endpoint responds succesfully" do
+  test "user endpoint responds successfully" do
+    conn = conn(:get, "/users/hackeryou")
+
+    response = GithubService.Router.call(conn, [])
+
+    assert response.status == 200
+  end
+
+  test "repositories endpoint responds successfully" do
     conn = conn(:get, "/users/hackeryou/repos")
 
     response = GithubService.Router.call(conn, [])

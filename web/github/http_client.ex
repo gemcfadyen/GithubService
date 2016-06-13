@@ -2,6 +2,11 @@ defmodule GithubService.Github.HTTPClient do
   @behaviour Client
   @root_url "https://api.github.com/"
 
+  def get_user_with_name(user) do
+    url = @root_url <> "users/" <> user
+    get(url).body
+  end
+
   def get_repositories_for(user) do
     url = @root_url <> "users/#{user}/repos"
     get(url).body

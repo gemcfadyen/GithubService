@@ -13,6 +13,7 @@ defmodule GithubService.Github.GetUserRepositoriesTest do
     GetUserRepositories.execute("hackeryou")
 
     stored_repos = Storage.find_all_for_user("hackeryou")
+
     assert length(stored_repos) == 30
   end
 

@@ -8,6 +8,7 @@ defmodule GithubService.Router do
   scope "/", GithubService do
     pipe_through :api
 
+    get "/users/:username", GithubController, :user
     get "/users/:username/repos", GithubController, :user_repos
     get "/repos/:username/:repo_name/languages", GithubController, :repo_languages
   end

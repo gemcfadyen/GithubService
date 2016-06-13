@@ -1,8 +1,18 @@
 defmodule GithubService.Github.Storage do
   import Ecto.Query
   alias GithubService.Repo
+  alias GithubService.Github.User
   alias GithubService.Github.Repository
   alias GithubService.Github.Language
+
+  def write_user(name) do
+    Repo.insert(name)
+  end
+
+  def find_user(name) do
+    query = from u in User, where: u.login == ^name, select: u
+    Repo.one(query)
+  end
 
   def write_repository(repository) do
     Repo.insert(repository)

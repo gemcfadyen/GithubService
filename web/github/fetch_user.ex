@@ -6,14 +6,19 @@ defmodule GithubService.Github.FetchUser do
 
   def with_username(name) do
     user = Storage.find_user(name)
-    if user != nil do
-      user
-    else
-      found_user = @client.get_user_with_name(name)
-                    |> TransformUserResponse.convert
 
-      Storage.write_user(found_user)
-      found_user
-    end
+    transform_user(user, found_user?(user))
+  end
+
+  defp transform_user(user, true), do: user
+  defp transform_user(user, false) do
+    found_user = @client.get_user_with_name(user)
+                  |> TransformUserResponse.convert
+    Storage.write_user(found_user)
+    found_user
+  end
+
+  defp found_user?(user) do
+    user != nil
   end
 end

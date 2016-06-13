@@ -17,6 +17,7 @@ defmodule GithubService.Github.FetchUserTest do
     assert user.login == "hackeryou"
   end
 
+  @tag :integration
   test "stores user when it is fetched externally" do
     FetchUser.with_username("HackerYou")
 

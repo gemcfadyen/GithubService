@@ -2,6 +2,15 @@ defmodule GithubService.GithubController do
   use GithubService.Web, :controller
   alias GithubService.Github.GetUserRepositories
   alias GithubService.Github.FetchLanguages
+  alias GithubService.Github.FetchUser
+
+  def user(conn, %{"username" => username}) do
+    user = username
+           |> downcase
+           |> FetchUser.with_username
+
+    json conn, user
+  end
 
   def user_repos(conn, %{"username" => username}) do
     repos = username

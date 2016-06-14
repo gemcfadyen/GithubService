@@ -1,28 +1,24 @@
 defmodule GithubService.Github.TransformUserResponse do
   alias GithubService.Github.User
+  alias GithubService.Github.RemoveUpdatedDate
 
   def convert(raw_response) do
-    Poison.Parser.parse!(raw_response)
+    raw_response
+    |> parse
     |> downcase_user
-    |> convert_keys_to_atoms
-    |> remove_updated_at_key
-    |> convert_map_to_struct
+    |> remove_date
+  end
+
+  defp parse(response) do
+    Poison.Parser.parse!(response)
   end
 
   defp downcase_user(user) do
-   user_login = Map.get(user, "login")
-   %{user | "login" => String.downcase(user_login)}
+    user_login = Map.get(user, "login")
+    %{user | "login" => String.downcase(user_login)}
   end
 
-  defp convert_keys_to_atoms(user) do
-    for {key, val} <- user, into: %{}, do: {String.to_atom(key), val}
-  end
-
-  defp remove_updated_at_key(user) do
-    Map.delete(user, :updated_at)
-  end
-
-  defp convert_map_to_struct(user) do
-    struct(User, user)
+  defp remove_date(entity) do
+    RemoveUpdatedDate.remove_date_from(entity, User)
   end
 end

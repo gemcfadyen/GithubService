@@ -8,6 +8,5 @@ defmodule GithubService.Github.User do
     field :repos_url, :string
 
     timestamps
-
   end
 end

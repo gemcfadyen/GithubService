@@ -5,20 +5,15 @@ defmodule GithubService.Github.FetchUser do
   @client Application.get_env(:github_service, :client)
 
   def with_username(name) do
-    user = Storage.find_user(name)
-
-    transform_user(user, found_user?(user))
+    Storage.find_user(name)
+    |> transform_user(name)
   end
 
-  defp transform_user(user, true), do: user
-  defp transform_user(user, false) do
-    found_user = @client.get_user_with_name(user)
+  defp transform_user(nil, name) do
+    found_user = @client.get_user_with_name(name)
                   |> TransformUserResponse.convert
-    Storage.write_user(found_user)
-    found_user
+      Storage.write_user(found_user)
+      found_user
   end
-
-  defp found_user?(user) do
-    user != nil
-  end
+  defp transform_user(user, _name), do: user
 end

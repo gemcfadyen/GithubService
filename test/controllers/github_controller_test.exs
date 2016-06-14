@@ -16,8 +16,8 @@ defmodule GithubService.GithubControllerTest do
 
     response = GithubService.Router.call(conn, [])
 
-    stored_repos = Storage.find_user("hackeryou")
-    {:ok, repos_in_json} = Poison.encode(stored_repos)
+    found_user = Storage.find_user("hackeryou")
+    {:ok, repos_in_json} = Poison.encode(found_user)
     assert response.resp_body == repos_in_json
   end
 

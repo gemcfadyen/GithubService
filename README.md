@@ -63,6 +63,9 @@ Navigate to a supported url
 Build the database
 > heroku run "POOL_SIZE=2 mix ecto.migrate"
 
+Migrate the database
+> heroku run "mix ecto.migrate"
+
 Push master to heroku
 > git push heroku master
 

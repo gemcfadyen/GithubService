@@ -63,11 +63,11 @@ Navigate to a supported url
 Build the database
 > heroku run "POOL_SIZE=2 mix ecto.migrate"
 
-Migrate the database
-> heroku run "mix ecto.migrate"
-
 Push master to heroku
 > git push heroku master
+
+Migrate the database
+> heroku run "mix ecto.migrate"
 
 To connect to the heroku database
 > heroku pg:psql

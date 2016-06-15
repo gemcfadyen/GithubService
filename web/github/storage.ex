@@ -10,7 +10,7 @@ defmodule GithubService.Github.Storage do
   end
 
   def find_user(name) do
-    query = from u in User, where: u.login == ^name, select: u
+    query = from u in User, where: u.owner == ^name, select: u
     Repo.one(query)
   end
 

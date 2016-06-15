@@ -5,13 +5,13 @@ defmodule GithubService.Github.TransformUserResponseTest do
   test "downcases user login" do
     user = TransformUserResponse.convert(raw_response)
 
-    assert user.login == "hackeryou"
+    assert user.owner == "hackeryou"
   end
 
   test "transforms user response" do
     user = TransformUserResponse.convert(raw_response)
 
-    assert user.login == "hackeryou"
+    assert user.owner == "hackeryou"
     assert user.public_repos == 35
     assert user.repos_url == "https://api.github.com/users/HackerYou/repos"
   end

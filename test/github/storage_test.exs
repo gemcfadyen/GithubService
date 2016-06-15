@@ -5,14 +5,14 @@ defmodule GithubService.Github.StorageTest do
   alias GithubService.Github.Storage
 
   test "writes a user to the database" do
-    %User{login: "hackeryou",
+    %User{owner: "hackeryou",
           public_repos: 10,
           repos_url: "repo-url"
     } |> Storage.write_user
 
     user = Storage.find_user("hackeryou")
 
-    assert user.login == "hackeryou"
+    assert user.owner == "hackeryou"
     assert user.public_repos == 10
     assert user.repos_url == "repo-url"
   end

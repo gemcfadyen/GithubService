@@ -7,14 +7,14 @@ defmodule GithubService.Github.FetchUserTest do
   @tag :integration
   test "retrieves user information with uppercase name" do
     user = FetchUser.with_username("HackerYou")
-    assert user.login == "hackeryou"
+    assert user.owner == "hackeryou"
   end
 
   @tag :integration
   test "retrieves user information externally" do
     user = FetchUser.with_username("hackeryou")
 
-    assert user.login == "hackeryou"
+    assert user.owner == "hackeryou"
   end
 
   @tag :integration
@@ -23,15 +23,15 @@ defmodule GithubService.Github.FetchUserTest do
 
     found_user = Storage.find_user("hackeryou")
 
-    assert found_user.login == "hackeryou"
+    assert found_user.owner == "hackeryou"
   end
 
   test "retrieves user information locally" do
-    user = %User{login: "hackeryou", public_repos: 12, repos_url: "repo-url" }
+    user = %User{owner: "hackeryou", public_repos: 12, repos_url: "repo-url" }
     Storage.write_user(user)
 
     found_user = FetchUser.with_username("hackeryou")
 
-    assert found_user.login == user.login
+    assert found_user.owner == user.owner
   end
 end

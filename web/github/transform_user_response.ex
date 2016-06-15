@@ -5,7 +5,7 @@ defmodule GithubService.Github.TransformUserResponse do
   def convert(raw_response) do
     raw_response
     |> parse
-    |> downcase_user
+    |> format_owner
     |> remove_date
   end
 
@@ -13,9 +13,17 @@ defmodule GithubService.Github.TransformUserResponse do
     Poison.Parser.parse!(response)
   end
 
-  defp downcase_user(user) do
-    user_login = Map.get(user, "login")
-    %{user | "login" => String.downcase(user_login)}
+  defp format_owner(parsed_response) do
+    parsed_response
+    |> Map.get("login")
+    |> String.downcase
+    |> add_owner(parsed_response)
+    |> Map.delete("login")
+  end
+
+  defp add_owner(owner_name, parsed_response) do
+    parsed_response
+    |> Map.put("owner", owner_name)
   end
 
   defp remove_date(entity) do

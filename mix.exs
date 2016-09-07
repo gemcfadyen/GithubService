@@ -4,7 +4,7 @@ defmodule GithubService.Mixfile do
   def project do
     [app: :github_service,
      version: "0.0.1",
-     elixir: "~> 1.0",
+     elixir: "~> 1.3.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -30,12 +30,12 @@ defmodule GithubService.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.4"},
+    [{:phoenix, "~> 1.2.0"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_ecto, "~> 2.0"},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:httpotion, "~> 2.2.0"}
+     {:httpotion, "~> 3.0.1"}
    ]
   end
 

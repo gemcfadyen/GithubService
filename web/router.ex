@@ -11,5 +11,6 @@ defmodule GithubService.Router do
     get "/users/:username", GithubController, :user
     get "/users/:username/repos", GithubController, :user_repos
     get "/repos/:username/:repo_name/languages", GithubController, :repo_languages
+    get "/perf_test", GithubController, :performance
   end
 end
